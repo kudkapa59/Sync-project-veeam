@@ -22,6 +22,8 @@ import re
 import logging
 import filecmp
 
+from threading import Thread
+
 from .options import OPTIONS
 from .version import __pkg_name__
 
@@ -93,8 +95,8 @@ class Syncer(object):
         def get_option(name):
             return options.get(name, OPTIONS[name][1]['default'])
 
-        self._verbose = get_option('verbose')
-        self._purge = get_option('purge')
+        # self._verbose = get_option('verbose')
+        # self._purge = get_option('purge')
         self._copydirection = 2 if get_option('twoway') else 0
         self._forcecopy = get_option('force')
         self._maketarget = get_option('create')
@@ -222,7 +224,7 @@ class Syncer(object):
         self._dcmp = self._compare(dir1, dir2)
 
         # Files & directories only in target directory
-        if self._purge:
+        if True:
             for f2 in self._dcmp.right_only:
                 fullf2 = os.path.join(self._dir2, f2)
                 # if self._verbose:
@@ -542,7 +544,7 @@ class Syncer(object):
 
         self._copyfiles = False
         self._updatefiles = True
-        self._purge = False
+        # self._purge = False
         self._creatdirs = False
 
         # if self._verbose:
@@ -557,7 +559,7 @@ class Syncer(object):
 
         self._copyfiles = False
         self._updatefiles = False
-        self._purge = False
+        # self._purge = False
         self._creatdirs = False
 
         self.log('Difference of directory %s from %s' %

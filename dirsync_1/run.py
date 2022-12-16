@@ -3,15 +3,26 @@ dirsync's functions
 """
 
 from __future__ import print_function
+from apscheduler.schedulers.background import BackgroundScheduler
 
 import sys
 import os
+import time
 
+import threading
 from .syncer import Syncer
+sched = BackgroundScheduler()
 
+def interval_work(sourcedir, targetdir, action, interval, log_file_path, **options):
+    # threading.Timer(interval, lambda: sync(sourcedir, targetdir, action, interval, log_file_path, **options)).start()
+    # sched.add_job(lambda: sync(sourcedir, targetdir, action, interval, log_file_path, **options), 'interval', seconds=interval)
+    # sched.start()
+
+    # sched.shutdown()
+    sync(sourcedir, targetdir, action, interval, log_file_path, **options)
+    # return 1
 
 def sync(sourcedir, targetdir, action, interval, log_file_path, **options):
-
     copier = Syncer(sourcedir, targetdir, action, interval, log_file_path, **options)
     copier.do_work()
 
