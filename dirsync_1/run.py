@@ -13,17 +13,17 @@ import threading
 from .syncer import Syncer
 sched = BackgroundScheduler()
 
-def interval_work(sourcedir, targetdir, interval, log_file_path, **options):
+def interval_work(sourcedir, targetdir, interval, log_file_path):
     # threading.Timer(interval, lambda: sync(sourcedir, targetdir, action, interval, log_file_path, **options)).start()
     # sched.add_job(lambda: sync(sourcedir, targetdir, action, interval, log_file_path, **options), 'interval', seconds=interval)
     # sched.start()
 
     # sched.shutdown()
-    sync(sourcedir, targetdir, interval, log_file_path, **options)
+    sync(sourcedir, targetdir, interval, log_file_path)
     # return 1
 
-def sync(sourcedir, targetdir, interval, log_file_path, **options):
-    copier = Syncer(sourcedir, targetdir, interval, log_file_path, **options)
+def sync(sourcedir, targetdir, interval, log_file_path):
+    copier = Syncer(sourcedir, targetdir, interval, log_file_path)
     copier.do_work()
 
     # print report at the end

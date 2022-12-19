@@ -40,11 +40,11 @@ class Syncer(object):
     """ An advanced directory synchronisation, update
     and file copying class """
 
-    def __init__(self, dir1, dir2, interval, log_file_path, **options):
+    def __init__(self, dir1, dir2, interval, log_file_path):
         self._log_file_path = log_file_path
 
-        self.logger = options.get('logger', None)
-        if not self.logger:
+        # self.logger = options.get('logger', None)
+        if True:
             # configure default logger to stdout
             log = logging.getLogger('dirsync_1')
             log.setLevel(logging.INFO)
@@ -90,25 +90,18 @@ class Syncer(object):
         self._numdeldfld = 0
 
         # options setup
-        def get_option(name):
-            return options.get(name, OPTIONS[name][1]['default'])
+        # def get_option(name):
+        #     return options.get(name, OPTIONS[name][1]['default'])
 
         self._copydirection = 0
-        self._forcecopy = get_option('force')
-        self._use_ctime = get_option('ctime')
+        # self._forcecopy = get_option('force')
+        # self._use_ctime = get_option('ctime')
+        self._forcecopy = False
+        self._use_ctime = False
         self._use_content = True
-
-        # excludes .dirsync file by default, must explicitly be in include
-        # not to be excluded
-        # self._exclude.append('^\.dirsync$')
 
         if not os.path.isdir(self._dir1):
             raise ValueError("Error: Source directory does not exist.")
-
-        if not os.path.isdir(self._dir2):
-            raise ValueError(
-                "Error: Target directory %s does not exist. "
-                "(Try the -c or --create option to create it)." % self._dir2)
 
     def log(self, msg=''):
         self.logger.info(msg)
@@ -121,39 +114,12 @@ class Syncer(object):
 
         self._numdirs += 1
 
-        # excl_patterns = set(self._exclude).union(self._ignore)
-
         for cwd, dirs, files in os.walk(dir1):
             self._numdirs += len(dirs)
             for f in dirs + files:
                 path = os.path.relpath(os.path.join(cwd, f), dir1)
                 re_path = path.replace('\\', '/')
-                # if self._only:
-                #     for pattern in self._only:
-                #         if re.match(pattern, re_path):
-                #             # go to exclude and ignore filtering
-                #             break
-                #     else:
-                #         # next item, this one does not match any pattern
-                #         # in the _only list
-                #         continue
 
-                add_path = False
-                # for pattern in self._include:
-                #     if re.match(pattern, re_path):
-                #         add_path = True
-                #         break
-                # else:
-                #     # path was not in includes
-                #     # test if it is in excludes
-                #     for pattern in excl_patterns:
-                #         if re.match(pattern, re_path):
-                #             # path is in excludes, do not add it
-                #             break
-                #     else:
-                #         # path was not in excludes
-                #         # it should be added
-                #         add_path = True
                 add_path = True
                 if add_path:
                     left.add(path)
@@ -167,15 +133,7 @@ class Syncer(object):
             for f in dirs + files:
                 path = os.path.relpath(os.path.join(cwd, f), dir2)
                 re_path = path.replace('\\', '/')
-                # for pattern in self._ignore:
-                #     if re.match(pattern, re_path):
-                #         if f in dirs:
-                #             dirs.remove(f)
-                #         break
-                # else:
                 right.add(path)
-                    # no need to add the parent dirs here,
-                    # as there is no _only pattern detection
                 if f in dirs and path not in left:
                     self._numdirs += 1
 
@@ -190,19 +148,16 @@ class Syncer(object):
 
         self._starttime = time.time()
 
-        # if not os.path.isdir(self._dir2):
-            # if self._maketarget:
-            #     # if self._verbose:
-            #     self.log('Creating directory %s' % self._dir2)
-            #     try:
-            #         os.makedirs(self._dir2)
-            #         self._numnewdirs += 1
-            #     except Exception as e:
-            #         self.log(str(e))
-            #         return None
+        if not os.path.isdir(self._dir2):
+            if True:
+                self.log('Creating directory %s' % self._dir2)
+                try:
+                    os.makedirs(self._dir2)
+                    self._numnewdirs += 1
+                except Exception as e:
+                    self.log(str(e))
+                    return None
 
-        # All right!
-        # self._mainfunc()
         self.sync()
         self._endtime = time.time()
 
@@ -296,7 +251,7 @@ class Syncer(object):
                          (filename, dir1, dir2))
             try:
                 # source to target
-                if self._copydirection == 0 or self._copydirection == 2:
+                if True:
 
                     if not os.path.exists(dir2):
                         if self._forcecopy:
@@ -319,38 +274,6 @@ class Syncer(object):
                                        os.path.join(dir2, filename))
                         else:
                             shutil.copy2(sourcefile, dir2)
-                        self._numfiles += 1
-                    except (IOError, OSError) as e:
-                        self.log(str(e))
-                        self._numcopyfld += 1
-
-                if self._copydirection == 1 or self._copydirection == 2:
-                    # target to source
-
-                    if not os.path.exists(dir1):
-                        if self._forcecopy:
-                            # 1911 = 0o777
-                            os.chmod(os.path.dirname(self.dir1_root), 1911)
-
-                        try:
-                            os.makedirs(dir1)
-                            self._numnewdirs += 1
-                        except OSError as e:
-                            self.log(str(e))
-                            self._numdirsfld += 1
-
-                    targetfile = os.path.abspath(os.path.join(dir1, filename))
-                    if self._forcecopy:
-                        os.chmod(dir1, 1911)  # 1911 = 0o777
-
-                    sourcefile = os.path.join(dir2, filename)
-
-                    try:
-                        if os.path.islink(sourcefile):
-                            os.symlink(os.readlink(sourcefile),
-                                       os.path.join(dir1, filename))
-                        else:
-                            shutil.copy2(sourcefile, targetfile)
                         self._numfiles += 1
                     except (IOError, OSError) as e:
                         self.log(str(e))
@@ -390,7 +313,7 @@ class Syncer(object):
             # Update will update in both directions depending
             # on ( the timestamp of the file or its content ) & copy-direction.
 
-            if self._copydirection == 0 or self._copydirection == 2:
+            if True:
 
                 # If flag 'content' is used then look only at difference of file
                 # contents instead of time stamps.
@@ -430,52 +353,19 @@ class Syncer(object):
                         self.log(str(e))
                         return -1
 
-            if self._copydirection == 1 or self._copydirection == 2:
-
-                # No need to do reverse synchronization in case of content comparing.
-                # Update file if file's modification time is older than
-                # source file's modification time, or creation time. Sometimes
-                # it so happens that a file's creation time is newer than it's
-                # modification time! (Seen this on windows)
-                need_upd = False if self._use_content else self._cmptimestamps(st2, st1)
-                if need_upd:
-                    # if self._verbose:
-                        # target to source
-                    self.log('Updating file %s' % file1)
-                    try:
-                        if self._forcecopy:
-                            os.chmod(file1, 1638)  # 1638 = 0o666
-
-                        try:
-                            if os.path.islink(file2):
-                                os.symlink(os.readlink(file2), file1)
-                            else:
-                                shutil.copy2(file2, file1)
-                            self._changed.append(file1)
-                            self._numtimeupdates += 1
-                            return 0
-                        except (IOError, OSError) as e:
-                            self.log(str(e))
-                            self._numupdsfld += 1
-                            return -1
-
-                    except Exception as e:
-                        self.log(str(e))
-                        return -1
-
         return -1
 
-    def _dirdiffandcopy(self, dir1, dir2):
-        """
-        Private function which does directory diff & copy
-        """
-        self._dowork(dir1, dir2, self._copy)
-
-    def _dirdiffandupdate(self, dir1, dir2):
-        """
-        Private function which does directory diff & update
-        """
-        self._dowork(dir1, dir2, None, self._update)
+    # def _dirdiffandcopy(self, dir1, dir2):
+    #     """
+    #     Private function which does directory diff & copy
+    #     """
+    #     self._dowork(dir1, dir2, self._copy)
+    #
+    # def _dirdiffandupdate(self, dir1, dir2):
+    #     """
+    #     Private function which does directory diff & update
+    #     """
+    #     self._dowork(dir1, dir2, None, self._update)
 
     def _dirdiffcopyandupdate(self, dir1, dir2):
         """
@@ -483,31 +373,31 @@ class Syncer(object):
         """
         self._dowork(dir1, dir2, self._copy, self._update)
 
-    def _diff(self, dir1, dir2):
-        """
-        Private function which only does directory diff
-        """
-
-        self._dcmp = self._compare(dir1, dir2)
-
-        if self._dcmp.left_only:
-            self.log('Only in %s' % dir1)
-            for x in sorted(self._dcmp.left_only):
-                self.log('>> %s' % x)
-            self.log('')
-
-        if self._dcmp.right_only:
-            self.log('Only in %s' % dir2)
-            for x in sorted(self._dcmp.right_only):
-                self.log('<< %s' % x)
-            self.log('')
-
-        if self._dcmp.common:
-            self.log('Common to %s and %s' % (self._dir1, self._dir2))
-            for x in sorted(self._dcmp.common):
-                self.log('-- %s' % x)
-        else:
-            self.log('No common files or sub-directories!')
+    # def _diff(self, dir1, dir2):
+    #     """
+    #     Private function which only does directory diff
+    #     """
+    #
+    #     self._dcmp = self._compare(dir1, dir2)
+    #
+    #     if self._dcmp.left_only:
+    #         self.log('Only in %s' % dir1)
+    #         for x in sorted(self._dcmp.left_only):
+    #             self.log('>> %s' % x)
+    #         self.log('')
+    #
+    #     if self._dcmp.right_only:
+    #         self.log('Only in %s' % dir2)
+    #         for x in sorted(self._dcmp.right_only):
+    #             self.log('<< %s' % x)
+    #         self.log('')
+    #
+    #     if self._dcmp.common:
+    #         self.log('Common to %s and %s' % (self._dir1, self._dir2))
+    #         for x in sorted(self._dcmp.common):
+    #             self.log('-- %s' % x)
+    #     else:
+    #         self.log('No common files or sub-directories!')
 
     def sync(self):
         """ Synchronize will try to synchronize two directories w.r.t
@@ -543,19 +433,19 @@ class Syncer(object):
     #                  (self._dir2, self._dir1))
     #     self._dirdiffandupdate(self._dir1, self._dir2)
 
-    def diff(self):
-        """
-        Only report difference in content between two directories
-        """
-
-        self._copyfiles = False
-        self._updatefiles = False
-        # self._purge = False
-        self._creatdirs = False
-
-        self.log('Difference of directory %s from %s' %
-                 (self._dir2, self._dir1))
-        self._diff(self._dir1, self._dir2)
+    # def diff(self):
+    #     """
+    #     Only report difference in content between two directories
+    #     """
+    #
+    #     self._copyfiles = False
+    #     self._updatefiles = False
+    #     # self._purge = False
+    #     self._creatdirs = False
+    #
+    #     self.log('Difference of directory %s from %s' %
+    #              (self._dir2, self._dir1))
+    #     self._diff(self._dir1, self._dir2)
 
     def report(self):
         """ Print report of work at the end """
