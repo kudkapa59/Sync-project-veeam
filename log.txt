@@ -3,3 +3,57 @@
 13:05:21,809 dirsync_1 INFO dirsync finished in 0.00 seconds.
 13:05:21,810 dirsync_1 INFO 1 directories parsed, 0 files copied
 13:05:21,810 dirsync_1 INFO 
+2022-12-19 15:51:44,204 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 15:51:44,204 dirsync_1 INFO Source directory: folder_1:
+2022-12-19 15:51:44,206 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 15:51:44,206 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 15:51:44,206 dirsync_1 INFO 
+2022-12-19 15:52:42 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 15:52:42 dirsync_1 INFO Source directory: folder_1:
+2022-12-19 15:52:42 dirsync_1 INFO dirsync finished in 0.01 seconds.
+2022-12-19 15:52:42 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 15:52:42 dirsync_1 INFO 
+2022-12-19 15:59:44 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 15:59:44 dirsync_1 INFO Source directory: folder_1
+2022-12-19 15:59:44 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 15:59:44 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 15:59:44 dirsync_1 INFO 
+2022-12-19 16:00:02 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 16:00:02 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:00:02 dirsync_1 INFO Deleting folder_3\Новый текстовый документ.txt
+2022-12-19 16:00:02 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 16:00:02 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 16:00:02 dirsync_1 INFO 1 files were purged.
+2022-12-19 16:00:02 dirsync_1 INFO 
+2022-12-19 16:07:24 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 16:07:24 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:07:24 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 16:07:24 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 16:07:24 dirsync_1 INFO 
+2022-12-19 16:08:53 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 16:08:53 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:08:53 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 16:08:53 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 16:08:53 dirsync_1 INFO 
+2022-12-19 16:10:16 dirsync_1 INFO Synchronizing directory folder_3 with folder_1
+2022-12-19 16:10:16 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:10:16 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 16:10:16 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 16:10:16 dirsync_1 INFO 
+2022-12-19 16:12:02 dirsync_1 INFO Synchronizing directory b'folder_2' with b'folder_1'
+2022-12-19 16:12:02 dirsync_1 INFO Source directory: b'folder_1'
+2022-12-19 16:15:45 dirsync_1 INFO Synchronizing directory folder_2 with folder_1
+2022-12-19 16:15:45 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:15:45 dirsync_1 INFO Deleting folder_2\Новая папка
+2022-12-19 16:15:45 dirsync_1 INFO Deleting folder_2\Новая папка\Новый текстовый документ.txt
+2022-12-19 16:15:45 dirsync_1 INFO Deleting folder_2\Новый текстовый документ.txt
+2022-12-19 16:15:45 dirsync_1 INFO dirsync finished in 0.01 seconds.
+2022-12-19 16:15:45 dirsync_1 INFO 2 directories parsed, 0 files copied
+2022-12-19 16:15:45 dirsync_1 INFO 1 files were purged.
+2022-12-19 16:15:45 dirsync_1 INFO 1 directories were purged.
+2022-12-19 16:15:45 dirsync_1 INFO 
+2022-12-19 16:15:48 dirsync_1 INFO Synchronizing directory folder_2 with folder_1
+2022-12-19 16:15:48 dirsync_1 INFO Source directory: folder_1
+2022-12-19 16:15:48 dirsync_1 INFO dirsync finished in 0.00 seconds.
+2022-12-19 16:15:48 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-19 16:15:48 dirsync_1 INFO 

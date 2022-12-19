@@ -30,90 +30,85 @@ action = sync
 """ % __pkg_name__
 
 
-options = (
-    ('verbose', (('-v',), dict(
-        action='store_true',
-        default=False,
-        help='Provide verbose output'
-    ))),
-    ('diff', (('-d',), dict(
-        action='store_const',
-        dest='action',
-        const='diff',
-        default=False,
-        help='Only report difference between sourcedir and targetdir'
-    ))),
-    ('sync', (('-s',), dict(
-        action='store_const',
-        dest='action',
-        const='sync',
-        default=False,
-        help='Synchronize content from sourcedir to targetdir'
-    ))),
-    ('update', (('-u',), dict(
-        action='store_const',
-        dest='action',
-        const='update',
-        default=False,
-        help='Update existing content between sourcedir and targetdir'
-    ))),
-    ('purge', (('-p',), dict(
-        action='store_true',
-        default=False,
-        help='Purge files when synchronizing (does not purge by default)'
-    ))),
-    ('force', (('-f',), dict(
-        action='store_true',
-        default=False,
-        help='Force copying of files, by trying to change file permissions'
-    ))),
-    ('twoway', (('-2',), dict(
-        action='store_true',
-        default=False,
-        help='Update files in source directory from target'
-             'directory (only updates target from source by default)'
-    ))),
-    ('create', (('-c',), dict(
-        action='store_true',
-        default=False,
-        help='Synchronize files from target to source directory as well.'
-    ))),
-    ('ctime', ((), dict(
-        action='store_true',
-        default=False,
-        help='Also takes into account the source file\'s creation time '
-             '(Windows) or the source file\'s last metadata change (Unix)'
-    ))),
-    ('content', ((), dict(
-        action='store_true',
-        default=False,
-        help='Takes into account ONLY content of files. Synchronize ONLY different files. '
-             'At two-way synchronization source files content have priority if destination and source are existed'
-    ))),
-    ('only', (('-o',), dict(
-        action='store', nargs='+',
-        default=[],
-        help='Patterns to exclusively include (exclude every other)'
-    ))),
-    ('exclude', (('-e',), dict(
-        action='store', nargs='+',
-        default=[],
-        help='Patterns to exclude'
-    ))),
-    ('include', (('-i',), dict(
-        action='store', nargs='+',
-        default=[],
-        help='Patterns to include (with precedence over excludes)'
-    ))),
-    ('ignore', (('-x',), dict(
-        action='store', nargs='+',
-        default=[],
-        help='Patterns to ignore (no action)'
-    ))),
-)
-
-
-OPTIONS = OrderedDict(options)
+# options = (
+#     ('diff', (('-d',), dict(
+#         action='store_const',
+#         dest='action',
+#         const='diff',
+#         default=False,
+#         help='Only report difference between sourcedir and targetdir'
+#     ))),
+#     ('sync', (('-s',), dict(
+#         action='store_const',
+#         dest='action',
+#         const='sync',
+#         default=False,
+#         help='Synchronize content from sourcedir to targetdir'
+#     ))),
+#     ('update', (('-u',), dict(
+#         action='store_const',
+#         dest='action',
+#         const='update',
+#         default=False,
+#         help='Update existing content between sourcedir and targetdir'
+#     ))),
+#     ('purge', (('-p',), dict(
+#         action='store_true',
+#         default=False,
+#         help='Purge files when synchronizing (does not purge by default)'
+#     ))),
+#     ('force', (('-f',), dict(
+#         action='store_true',
+#         default=False,
+#         help='Force copying of files, by trying to change file permissions'
+#     ))),
+#     ('twoway', (('-2',), dict(
+#         action='store_true',
+#         default=False,
+#         help='Update files in source directory from target'
+#              'directory (only updates target from source by default)'
+#     ))),
+#     ('create', (('-c',), dict(
+#         action='store_true',
+#         default=False,
+#         help='Synchronize files from target to source directory as well.'
+#     ))),
+#     ('ctime', ((), dict(
+#         action='store_true',
+#         default=False,
+#         help='Also takes into account the source file\'s creation time '
+#              '(Windows) or the source file\'s last metadata change (Unix)'
+#     ))),
+#     ('content', ((), dict(
+#         action='store_true',
+#         default=False,
+#         help='Takes into account ONLY content of files. Synchronize ONLY different files. '
+#              'At two-way synchronization source files content have priority if destination and source are existed'
+#     ))),
+#     ('only', (('-o',), dict(
+#         action='store', nargs='+',
+#         default=[],
+#         help='Patterns to exclusively include (exclude every other)'
+#     ))),
+#     ('exclude', (('-e',), dict(
+#         action='store', nargs='+',
+#         default=[],
+#         help='Patterns to exclude'
+#     ))),
+#     ('include', (('-i',), dict(
+#         action='store', nargs='+',
+#         default=[],
+#         help='Patterns to include (with precedence over excludes)'
+#     ))),
+#     ('ignore', (('-x',), dict(
+#         action='store', nargs='+',
+#         default=[],
+#         help='Patterns to ignore (no action)'
+#     ))),
+# )
+#
+#
+# OPTIONS = OrderedDict(options)
 
 
 class ArgParser(ArgumentParser):
@@ -131,8 +126,8 @@ class ArgParser(ArgumentParser):
         self.add_argument('targetdir',
                           action='store',
                           help='Target directory')
-        for opt, args in options:
-            self.add_argument('--' + opt, *args[0], **args[1])
+        # for opt, args in options:
+        #     self.add_argument('--' + opt, *args[0], **args[1])
 
     def parse_args(self, args=None, namespace=None):
         if args or len(sys.argv) > 1:
@@ -166,26 +161,26 @@ class ArgParser(ArgumentParser):
             return
 
         defaults = {}
-        for name, val in cfg.items('defaults'):
-            try:
-                opt = OPTIONS[name][1]
-            except KeyError:
-                if name == 'action':
-                    if val in OPTIONS:
-                        defaults['action'] = val
-                    else:
-                        raise ValueError('Invalid value for "action" option '
-                                         'in configuration file: %s' % val)
-                continue
-
-            curdef = opt.get('default', '')
-            if isinstance(curdef, bool):
-                newdef = val not in ('0', 'False', 'false')
-            elif isinstance(curdef, string_types):
-                newdef = val
-            else:
-                newdef = val.strip('\n').split('\n')
-
-            defaults[name] = newdef
+        # for name, val in cfg.items('defaults'):
+        #     try:
+        #         opt = OPTIONS[name][1]
+        #     except KeyError:
+        #         if name == 'action':
+        #             if val in OPTIONS:
+        #                 defaults['action'] = val
+        #             else:
+        #                 raise ValueError('Invalid value for "action" option '
+        #                                  'in configuration file: %s' % val)
+        #         continue
+        #
+        #     curdef = opt.get('default', '')
+        #     if isinstance(curdef, bool):
+        #         newdef = val not in ('0', 'False', 'false')
+        #     elif isinstance(curdef, string_types):
+        #         newdef = val
+        #     else:
+        #         newdef = val.strip('\n').split('\n')
+        #
+        #     defaults[name] = newdef
 
         self.set_defaults(**defaults)

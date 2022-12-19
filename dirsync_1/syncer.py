@@ -24,7 +24,7 @@ import filecmp
 
 from threading import Thread
 
-from .options import OPTIONS
+# from .options import OPTIONS
 from .version import __pkg_name__
 
 
@@ -55,8 +55,8 @@ class Syncer(object):
             self.logger = log
             logging.basicConfig(filename=self._log_file_path,
                                 filemode='a',
-                                format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                                datefmt='%H:%M:%S',
+                                format='%(asctime)s %(name)s %(levelname)s %(message)s',
+                                datefmt='%Y-%m-%d %H:%M:%S',
                                 level=logging.DEBUG)
 
         self._dir1 = dir1
@@ -164,8 +164,7 @@ class Syncer(object):
     def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):
         """ Private attribute for doing work """
 
-        # if self._verbose:
-        self.log('Source directory: %s:' % dir1)
+        self.log('Source directory: %s' % dir1)
 
         self._dcmp = self._compare(dir1, dir2)
 
@@ -173,7 +172,6 @@ class Syncer(object):
         if True:
             for f2 in self._dcmp.right_only:
                 fullf2 = os.path.join(self._dir2, f2)
-                # if self._verbose:
                 self.log('Deleting %s' % fullf2)
                 try:
                     if os.path.isfile(fullf2):
@@ -246,13 +244,10 @@ class Syncer(object):
             dir1 = os.path.join(dir1, rel_dir)
             dir2 = os.path.join(dir2, rel_dir)
 
-            # if self._verbose:
             self.log('Copying file %s from %s to %s' %
                          (filename, dir1, dir2))
             try:
-                # source to target
                 if True:
-
                     if not os.path.exists(dir2):
                         if self._forcecopy:
                             # 1911 = 0o777
@@ -373,32 +368,6 @@ class Syncer(object):
         """
         self._dowork(dir1, dir2, self._copy, self._update)
 
-    # def _diff(self, dir1, dir2):
-    #     """
-    #     Private function which only does directory diff
-    #     """
-    #
-    #     self._dcmp = self._compare(dir1, dir2)
-    #
-    #     if self._dcmp.left_only:
-    #         self.log('Only in %s' % dir1)
-    #         for x in sorted(self._dcmp.left_only):
-    #             self.log('>> %s' % x)
-    #         self.log('')
-    #
-    #     if self._dcmp.right_only:
-    #         self.log('Only in %s' % dir2)
-    #         for x in sorted(self._dcmp.right_only):
-    #             self.log('<< %s' % x)
-    #         self.log('')
-    #
-    #     if self._dcmp.common:
-    #         self.log('Common to %s and %s' % (self._dir1, self._dir2))
-    #         for x in sorted(self._dcmp.common):
-    #             self.log('-- %s' % x)
-    #     else:
-    #         self.log('No common files or sub-directories!')
-
     def sync(self):
         """ Synchronize will try to synchronize two directories w.r.t
         each other's contents, copying files if necessary from source
@@ -412,40 +381,8 @@ class Syncer(object):
         self._creatdirs = True
         self._copydirection = 0
 
-        # if self._verbose:
-        self.log('Synchronizing directory %s with %s' %
-                     (self._dir2, self._dir1))
+        self.log('Synchronizing directory %s with %s' % (self._dir2, self._dir1))
         self._dirdiffcopyandupdate(self._dir1, self._dir2)
-
-    # def update(self):
-    #     """ Update will try to update the target directory
-    #     w.r.t source directory. Only files that are common
-    #     to both directories will be updated, no new files
-    #     or directories are created """
-    #
-    #     self._copyfiles = False
-    #     self._updatefiles = True
-    #     # self._purge = False
-    #     self._creatdirs = False
-    #
-    #     # if self._verbose:
-    #     self.log('Updating directory %s with %s' %
-    #                  (self._dir2, self._dir1))
-    #     self._dirdiffandupdate(self._dir1, self._dir2)
-
-    # def diff(self):
-    #     """
-    #     Only report difference in content between two directories
-    #     """
-    #
-    #     self._copyfiles = False
-    #     self._updatefiles = False
-    #     # self._purge = False
-    #     self._creatdirs = False
-    #
-    #     self.log('Difference of directory %s from %s' %
-    #              (self._dir2, self._dir1))
-    #     self._diff(self._dir1, self._dir2)
 
     def report(self):
         """ Print report of work at the end """
