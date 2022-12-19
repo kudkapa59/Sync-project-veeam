@@ -40,7 +40,7 @@ class Syncer(object):
     """ An advanced directory synchronisation, update
     and file copying class """
 
-    def __init__(self, dir1, dir2, action, interval, log_file_path, **options):
+    def __init__(self, dir1, dir2, interval, log_file_path, **options):
         self._log_file_path = log_file_path
 
         self.logger = options.get('logger', None)
@@ -89,19 +89,15 @@ class Syncer(object):
         self._numdelffld = 0
         self._numdeldfld = 0
 
-        self._mainfunc = getattr(self, action)
-
         # options setup
         def get_option(name):
             return options.get(name, OPTIONS[name][1]['default'])
 
-        # self._verbose = get_option('verbose')
-        # self._purge = get_option('purge')
         self._copydirection = 2 if get_option('twoway') else 0
         self._forcecopy = get_option('force')
         self._maketarget = get_option('create')
         self._use_ctime = get_option('ctime')
-        self._use_content = get_option('content')
+        self._use_content = True
 
         self._ignore = get_option('ignore')
         self._only = get_option('only')
@@ -212,7 +208,8 @@ class Syncer(object):
                     return None
 
         # All right!
-        self._mainfunc()
+        # self._mainfunc()
+        self.sync()
         self._endtime = time.time()
 
     def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):
@@ -536,21 +533,21 @@ class Syncer(object):
                      (self._dir2, self._dir1))
         self._dirdiffcopyandupdate(self._dir1, self._dir2)
 
-    def update(self):
-        """ Update will try to update the target directory
-        w.r.t source directory. Only files that are common
-        to both directories will be updated, no new files
-        or directories are created """
-
-        self._copyfiles = False
-        self._updatefiles = True
-        # self._purge = False
-        self._creatdirs = False
-
-        # if self._verbose:
-        self.log('Updating directory %s with %s' %
-                     (self._dir2, self._dir1))
-        self._dirdiffandupdate(self._dir1, self._dir2)
+    # def update(self):
+    #     """ Update will try to update the target directory
+    #     w.r.t source directory. Only files that are common
+    #     to both directories will be updated, no new files
+    #     or directories are created """
+    #
+    #     self._copyfiles = False
+    #     self._updatefiles = True
+    #     # self._purge = False
+    #     self._creatdirs = False
+    #
+    #     # if self._verbose:
+    #     self.log('Updating directory %s with %s' %
+    #                  (self._dir2, self._dir1))
+    #     self._dirdiffandupdate(self._dir1, self._dir2)
 
     def diff(self):
         """
