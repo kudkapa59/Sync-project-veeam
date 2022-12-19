@@ -18,15 +18,12 @@ import sys
 import stat
 import time
 import shutil
-import re
 import logging
 import filecmp
 
 from threading import Thread
 
-# from .options import OPTIONS
-from .version import __pkg_name__
-
+__pkg_name__ = 'sync'
 
 class DCMP(object):
     """Dummy object for directory comparison data storage"""
@@ -89,13 +86,7 @@ class Syncer(object):
         self._numdelffld = 0
         self._numdeldfld = 0
 
-        # options setup
-        # def get_option(name):
-        #     return options.get(name, OPTIONS[name][1]['default'])
-
         self._copydirection = 0
-        # self._forcecopy = get_option('force')
-        # self._use_ctime = get_option('ctime')
         self._forcecopy = False
         self._use_ctime = False
         self._use_content = True
@@ -349,18 +340,6 @@ class Syncer(object):
                         return -1
 
         return -1
-
-    # def _dirdiffandcopy(self, dir1, dir2):
-    #     """
-    #     Private function which does directory diff & copy
-    #     """
-    #     self._dowork(dir1, dir2, self._copy)
-    #
-    # def _dirdiffandupdate(self, dir1, dir2):
-    #     """
-    #     Private function which does directory diff & update
-    #     """
-    #     self._dowork(dir1, dir2, None, self._update)
 
     def _dirdiffcopyandupdate(self, dir1, dir2):
         """
