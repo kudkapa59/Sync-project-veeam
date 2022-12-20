@@ -9,12 +9,12 @@ import shutil
 import logging
 import filecmp
 
-from threading import Thread
-
 __pkg_name__ = 'sync'
+
 
 class DCMP(object):
     """Dummy object for directory comparison data storage"""
+
     def __init__(self, l, r, c):
         self.left_only = l
         self.right_only = r
@@ -22,13 +22,12 @@ class DCMP(object):
 
 
 class Syncer(object):
-    """ An advanced directory synchronisation, update
-    and file copying class """
+    """Modifies the replica folder to exactly match content of the source folder."""
 
     def __init__(self, dir1, dir2, interval, log_file_path):
         self._log_file_path = log_file_path
 
-        # configure default logger to stdout
+        # logging configuration to print logs to console and to the specified file
         log = logging.getLogger('sync')
         log.setLevel(logging.INFO)
         if not log.handlers:
@@ -73,9 +72,7 @@ class Syncer(object):
         self._numdeldfld = 0
 
         self._copydirection = 0
-        self._forcecopy = False
         self._use_ctime = False
-        self._use_content = True
 
         if not os.path.isdir(self._dir1):
             raise ValueError("Error: Source directory does not exist.")
@@ -84,7 +81,7 @@ class Syncer(object):
         self.logger.info(msg)
 
     def _compare(self, dir1, dir2):
-        """ Compare contents of two directories """
+        """ Compares source and replica folders."""
 
         left = set()
         right = set()
@@ -220,12 +217,11 @@ class Syncer(object):
             dir2 = os.path.join(dir2, rel_dir)
 
             self.log('Copying file %s from %s to %s' %
-                         (filename, dir1, dir2))
+                     (filename, dir1, dir2))
             try:
                 if not os.path.exists(dir2):
-                    if self._forcecopy:
-                        # 1911 = 0o777
-                        os.chmod(os.path.dirname(dir2_root), 1911)
+                    # 1911 = 0o777
+                    os.chmod(os.path.dirname(dir2_root), 1911)
                     try:
                         os.makedirs(dir2)
                         self._numnewdirs += 1
@@ -233,8 +229,7 @@ class Syncer(object):
                         self.log(str(e))
                         self._numdirsfld += 1
 
-                if self._forcecopy:
-                    os.chmod(dir2, 1911)  # 1911 = 0o777
+                os.chmod(dir2, 1911)  # 1911 = 0o777
 
                 sourcefile = os.path.join(dir1, filename)
                 try:
@@ -257,11 +252,7 @@ class Syncer(object):
         if file1 (source) is more recent than file2 (target) """
 
         mtime_cmp = int((filest1.st_mtime - filest2.st_mtime) * 1000) > 0
-        if self._use_ctime:
-            return mtime_cmp or \
-                   int((filest1.st_ctime - filest2.st_mtime) * 1000) > 0
-        else:
-            return mtime_cmp
+        return mtime_cmp
 
     def _update(self, filename, dir1, dir2):
         """ Private function for updating a file based on
@@ -288,13 +279,12 @@ class Syncer(object):
             # source file's modification time, or creation time. Sometimes
             # it so happens that a file's creation time is newer than it's
             # modification time! (Seen this on windows)
-            need_upd = (not filecmp.cmp(file1, file2, False)) if self._use_content else self._cmptimestamps(st1, st2)
+            need_upd = (not filecmp.cmp(file1, file2, False))
             if need_upd:
                 # source to target
                 self.log('Updating file %s' % file2)
                 try:
-                    if self._forcecopy:
-                        os.chmod(file2, 1638)  # 1638 = 0o666
+                    os.chmod(file2, 1638)  # 1638 = 0o666
 
                     try:
                         if os.path.islink(file1):
@@ -306,10 +296,7 @@ class Syncer(object):
                                 os.chmod(file2, stat.S_IWRITE)
                                 shutil.copy2(file1, file2)
                         self._changed.append(file2)
-                        if self._use_content:
-                           self._numcontupdates += 1
-                        else:
-                           self._numtimeupdates += 1
+                        self._numcontupdates += 1
                         return 0
                     except (IOError, OSError) as e:
                         self.log(str(e))

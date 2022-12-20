@@ -1,3 +1,7 @@
+"""
+
+"""
+
 from sync import sync
 import schedule
 import argparse
@@ -26,7 +30,7 @@ if args.time_units == 's':
 elif args.time_units == 'm':
     schedule.every(args.interval).minutes.do(sync, args.sourcedir,
                                              args.targetdir, str(args.interval) + args.time_units, args.log_file_path)
-elif args.time_units == 'h':
+else:
     schedule.every(args.interval).hours.do(sync, args.sourcedir,
                                            args.targetdir, str(args.interval) + args.time_units, args.log_file_path)
 
