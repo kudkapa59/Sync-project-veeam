@@ -1,5 +1,4 @@
 """
-dirsync's functions
 """
 
 from __future__ import print_function
@@ -13,8 +12,8 @@ import schedule
 from .syncer import Syncer
 # sched = BackgroundScheduler()
 
-def sync(sourcedir, targetdir, log_file_path):
-    copier = Syncer(sourcedir, targetdir, log_file_path)
+def sync(sourcedir, targetdir, interval, log_file_path):
+    copier = Syncer(sourcedir, targetdir, interval, log_file_path)
     copier.do_work()
 
     # print report at the end
