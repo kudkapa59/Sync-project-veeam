@@ -18,10 +18,10 @@ except ImportError:
 
 from six import string_types
 
-
-from .version import __pkg_name__
-
-__all__ = ['USER_CFG_FILE', 'DEFAULT_USER_CFG', 'OPTIONS', 'ArgParser']
+__pkg_name__ = 'sync'
+# from .version import __pkg_name__
+#
+__all__ = ['USER_CFG_FILE', 'DEFAULT_USER_CFG', 'ArgParser']
 
 USER_CFG_FILE = '~/.%s' % __pkg_name__
 DEFAULT_USER_CFG = """# %s default options

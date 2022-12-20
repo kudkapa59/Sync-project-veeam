@@ -81,3 +81,140 @@
 2022-12-20 09:45:54 sync INFO sync finished in 0.00 seconds.
 2022-12-20 09:45:54 sync INFO 1 directories parsed, 1 files copied
 2022-12-20 09:45:54 sync INFO 
+2022-12-20 10:15:05 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 10:15:05 sync INFO Source directory: folder_1
+2022-12-20 10:15:05 sync INFO sync finished in 0.00 seconds.
+2022-12-20 10:15:05 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 10:15:05 sync INFO 
+2022-12-20 10:15:14 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 10:15:14 sync INFO Source directory: folder_1
+2022-12-20 10:15:14 sync INFO Copying file Probe Document Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 10:15:14 sync INFO sync finished in 0.00 seconds.
+2022-12-20 10:15:14 sync INFO 1 directories parsed, 1 files copied
+2022-12-20 10:15:14 sync INFO 
+2022-12-20 10:23:39 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 10:23:39 sync INFO Source directory: folder_1
+2022-12-20 10:23:39 sync INFO sync finished in 0.00 seconds.
+2022-12-20 10:23:39 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 10:23:39 sync INFO 
+2022-12-20 11:12:41 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:12:41 sync INFO Source directory: folder_1
+2022-12-20 11:12:41 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:12:41 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:12:41 sync INFO 
+2022-12-20 11:15:16 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:15:16 sync INFO Source directory: folder_1
+2022-12-20 11:15:16 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:15:16 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:15:16 sync INFO 
+2022-12-20 11:15:26 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:15:26 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:15:26 sync INFO Source directory: folder_1
+2022-12-20 11:15:26 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:15:26 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:15:26 sync INFO 
+2022-12-20 11:15:36 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:15:36 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:15:36 sync INFO Source directory: folder_1
+2022-12-20 11:15:36 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:15:36 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:15:36 sync INFO 
+2022-12-20 11:15:46 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:15:46 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:15:46 sync INFO Source directory: folder_1
+2022-12-20 11:15:46 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:15:46 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:15:46 sync INFO 
+2022-12-20 11:15:56 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:15:56 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:15:56 sync INFO Source directory: folder_1
+2022-12-20 11:15:56 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:15:56 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:15:56 sync INFO 
+2022-12-20 11:16:06 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:16:06 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:16:06 sync INFO Source directory: folder_1
+2022-12-20 11:16:06 sync INFO Deleting folder_2\Probe Document.DAT
+2022-12-20 11:16:06 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:16:06 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:16:06 sync INFO 1 files were purged.
+2022-12-20 11:16:06 sync INFO 
+2022-12-20 11:16:16 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:16:16 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:16:16 sync INFO Source directory: folder_1
+2022-12-20 11:16:16 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:16:16 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:16:16 sync INFO 
+2022-12-20 11:17:20 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:17:20 sync INFO Source directory: folder_1
+2022-12-20 11:17:20 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:17:20 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:17:20 sync INFO 
+2022-12-20 11:17:30 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:17:30 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:17:30 sync INFO Source directory: folder_1
+2022-12-20 11:17:30 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:17:30 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:17:30 sync INFO 
+2022-12-20 11:17:40 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:17:40 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:17:40 sync INFO Source directory: folder_1
+2022-12-20 11:17:40 sync INFO Copying file Probe Document Ч копи€ Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 11:17:40 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:17:40 sync INFO 1 directories parsed, 1 files copied
+2022-12-20 11:17:40 sync INFO 
+2022-12-20 11:17:50 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:17:50 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:17:50 sync INFO Source directory: folder_1
+2022-12-20 11:17:50 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:17:50 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:17:50 sync INFO 
+2022-12-20 11:18:00 schedule DEBUG Running job Job(interval=10, unit=seconds, do=interval_work, args=('folder_1', 'folder_2', 10, 'log.txt'), kwargs={})
+2022-12-20 11:18:00 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:18:00 sync INFO Source directory: folder_1
+2022-12-20 11:18:00 sync INFO Updating file folder_2\Probe Document Ч копи€.DAT
+2022-12-20 11:18:00 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:18:00 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:18:00 sync INFO 1 files were updated by content.
+2022-12-20 11:18:00 sync INFO 
+2022-12-20 11:21:09 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:21:09 sync INFO Source directory: folder_1
+2022-12-20 11:21:09 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:21:09 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:21:09 sync INFO 
+2022-12-20 11:21:19 schedule DEBUG Running job Job(interval=10, unit=seconds, do=sync, args=('folder_1', 'folder_2', 'log.txt'), kwargs={})
+2022-12-20 11:21:19 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:21:19 sync INFO Source directory: folder_1
+2022-12-20 11:21:19 sync INFO Copying file Probe Document Ч копи€ Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 11:21:19 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:21:19 sync INFO 1 directories parsed, 1 files copied
+2022-12-20 11:21:19 sync INFO 
+2022-12-20 11:22:15 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:22:15 sync INFO Source directory: folder_1
+2022-12-20 11:22:15 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:22:15 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:22:15 sync INFO 
+2022-12-20 11:22:45 sync INFO Synchronizing directory folder_2 with C:\Users\Kapa\Desktop\folder_1
+2022-12-20 11:22:45 sync INFO Source directory: C:\Users\Kapa\Desktop\folder_1
+2022-12-20 11:22:45 sync INFO Deleting folder_2\Probe Document Ч копи€ Ч копи€.DAT
+2022-12-20 11:22:45 sync INFO Deleting folder_2\Probe Document Ч копи€.DAT
+2022-12-20 11:22:45 sync INFO Copying file Ќовый текстовый документ.txt from C:\Users\Kapa\Desktop\folder_1\ to folder_2\
+2022-12-20 11:22:45 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:22:45 sync INFO 1 directories parsed, 1 files copied
+2022-12-20 11:22:45 sync INFO 2 files were purged.
+2022-12-20 11:22:45 sync INFO 
+2022-12-20 11:22:55 schedule DEBUG Running job Job(interval=10, unit=seconds, do=sync, args=('C:\\Users\\Kapa\\Desktop\\folder_1', 'folder_2', 'log.txt'), kwargs={})
+2022-12-20 11:22:55 sync INFO Synchronizing directory folder_2 with C:\Users\Kapa\Desktop\folder_1
+2022-12-20 11:22:55 sync INFO Source directory: C:\Users\Kapa\Desktop\folder_1
+2022-12-20 11:22:55 sync INFO Deleting folder_2\Ќовый текстовый документ.txt
+2022-12-20 11:22:55 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:22:55 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 11:22:55 sync INFO 1 files were purged.
+2022-12-20 11:22:55 sync INFO 
+2022-12-20 11:24:31 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 11:24:31 sync INFO Source directory: folder_1
+2022-12-20 11:24:31 sync INFO Copying file Probe Document Ч копи€ Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 11:24:31 sync INFO Copying file Probe Document Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 11:24:31 sync INFO sync finished in 0.00 seconds.
+2022-12-20 11:24:31 sync INFO 1 directories parsed, 2 files copied
+2022-12-20 11:24:31 sync INFO 
