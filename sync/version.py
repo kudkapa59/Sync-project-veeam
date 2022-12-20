@@ -1,6 +1,10 @@
+"""
+Project versionning info
+"""
+
 # import subprocess
-#
-# __pkg_name__ = 'dirsync'
+
+# __pkg_name__ = 'sync'
 #
 # __version_info__ = (2, 2, 5, 'final', 0)
 #

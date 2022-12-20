@@ -57,3 +57,27 @@
 2022-12-19 16:15:48 dirsync_1 INFO dirsync finished in 0.00 seconds.
 2022-12-19 16:15:48 dirsync_1 INFO 1 directories parsed, 0 files copied
 2022-12-19 16:15:48 dirsync_1 INFO 
+2022-12-20 09:38:44 dirsync_1 INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 09:38:44 dirsync_1 INFO Source directory: folder_1
+2022-12-20 09:38:44 dirsync_1 INFO sync finished in 0.00 seconds.
+2022-12-20 09:38:44 dirsync_1 INFO 1 directories parsed, 0 files copied
+2022-12-20 09:38:44 dirsync_1 INFO 
+2022-12-20 09:39:15 dirsync_1 INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 09:39:15 dirsync_1 INFO Source directory: folder_1
+2022-12-20 09:39:15 dirsync_1 INFO Copying file Probe Document Ч копи€.DAT from folder_1\ to folder_2\
+2022-12-20 09:39:15 dirsync_1 INFO Updating file folder_2\Probe Document.DAT
+2022-12-20 09:39:15 dirsync_1 INFO sync finished in 0.02 seconds.
+2022-12-20 09:39:15 dirsync_1 INFO 1 directories parsed, 1 files copied
+2022-12-20 09:39:15 dirsync_1 INFO 1 files were updated by content.
+2022-12-20 09:39:15 dirsync_1 INFO 
+2022-12-20 09:45:43 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 09:45:43 sync INFO Source directory: folder_1
+2022-12-20 09:45:43 sync INFO sync finished in 0.00 seconds.
+2022-12-20 09:45:43 sync INFO 1 directories parsed, 0 files copied
+2022-12-20 09:45:43 sync INFO 
+2022-12-20 09:45:54 sync INFO Synchronizing directory folder_2 with folder_1
+2022-12-20 09:45:54 sync INFO Source directory: folder_1
+2022-12-20 09:45:54 sync INFO Copying file Probe Document.DAT from folder_1\ to folder_2\
+2022-12-20 09:45:54 sync INFO sync finished in 0.00 seconds.
+2022-12-20 09:45:54 sync INFO 1 directories parsed, 1 files copied
+2022-12-20 09:45:54 sync INFO 

@@ -1,5 +1,5 @@
-from dirsync_1 import sync
-from dirsync_1 import interval_work
+from sync import sync
+from sync import interval_work
 # from sync import sync
 # from dirsync import sync
 import logging
