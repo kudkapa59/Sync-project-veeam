@@ -1,1 +1,1 @@
-from .run import sync
+from .run import synchronize

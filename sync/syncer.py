@@ -13,7 +13,7 @@ __pkg_name__ = 'sync'
 
 
 class DCMP(object):
-    """Dummy object for directory comparison data storage"""
+    """Class to store unique values in source and replica folders, and common files in these folders"""
 
     def __init__(self, l, r, c):
         self.left_only = l
@@ -45,10 +45,6 @@ class Syncer(object):
         self._dir1 = dir1
         self._dir2 = dir2
 
-        self._copyfiles = True
-        self._updatefiles = True
-        self._creatdirs = True
-
         self._changed = []
         self._added = []
         self._deleted = []
@@ -71,9 +67,6 @@ class Syncer(object):
         self._numdelffld = 0
         self._numdeldfld = 0
 
-        self._copydirection = 0
-        self._use_ctime = False
-
         if not os.path.isdir(self._dir1):
             raise ValueError("Error: Source directory does not exist.")
 
@@ -94,21 +87,17 @@ class Syncer(object):
                 path = os.path.relpath(os.path.join(cwd, f), dir1)
                 re_path = path.replace('\\', '/')
 
-                add_path = True
-                if add_path:
-                    left.add(path)
-                    anc_dirs = re_path[:-1].split('/')
-                    anc_dirs_path = ''
-                    for ad in anc_dirs[1:]:
-                        anc_dirs_path = os.path.join(anc_dirs_path, ad)
-                        left.add(anc_dirs_path)
-
+                left.add(path)
+                anc_dirs = re_path[:-1].split('/')
+                anc_dirs_path = ''
+                for ad in anc_dirs[1:]:
+                    anc_dirs_path = os.path.join(anc_dirs_path, ad)  # TODO
+                    left.add(anc_dirs_path)
         for cwd, dirs, files in os.walk(dir2):
             for f in dirs + files:
                 path = os.path.relpath(os.path.join(cwd, f), dir2)
-                re_path = path.replace('\\', '/')
                 right.add(path)
-                if f in dirs and path not in left:
+                if f in dirs and path not in left:  # TODO
                     self._numdirs += 1
 
         common = left.intersection(right)
@@ -117,8 +106,9 @@ class Syncer(object):
 
         return DCMP(left, right, common)
 
-    def do_work(self):
-        """ Do work """
+    def sync_work(self):
+        """Creates new directory if it doesn't exist. Calls to synchronization function. Takes starting and ending
+        time."""
 
         self._starttime = time.time()
 
@@ -134,14 +124,13 @@ class Syncer(object):
         self.sync()
         self._endtime = time.time()
 
-    def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):
+    def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):  # TODO
         """ Private attribute for doing work """
 
         self.log('Source directory: %s' % dir1)
 
         self._dcmp = self._compare(dir1, dir2)
 
-        # Files & directories only in target directory
         for f2 in self._dcmp.right_only:
             fullf2 = os.path.join(self._dir2, f2)
             self.log('Deleting %s' % fullf2)
@@ -160,18 +149,18 @@ class Syncer(object):
                         self._numdelffld += 1
                 elif os.path.isdir(fullf2):
                     try:
-                        shutil.rmtree(fullf2, True)
+                        os.chmod(fullf2, stat.S_IWRITE)
+                        shutil.rmtree(fullf2, False)
                         self._deleted.append(fullf2)
                         self._numdeldirs += 1
                     except shutil.Error as e:
                         self.log(str(e))
                         self._numdeldfld += 1
 
-            except Exception as e:  # of any use ?
+            except Exception as e:
                 self.log(str(e))
                 continue
 
-        # Files & directories only in source directory
         for f1 in self._dcmp.left_only:
             try:
                 st = os.stat(os.path.join(self._dir1, f1))
@@ -189,7 +178,6 @@ class Syncer(object):
                     self._numnewdirs += 1
                     self._added.append(to_make)
 
-        # common files/directories
         for f1 in self._dcmp.common:
             try:
                 st = os.stat(os.path.join(self._dir1, f1))
@@ -199,142 +187,102 @@ class Syncer(object):
             if stat.S_ISREG(st.st_mode):
                 if updatefunc:
                     updatefunc(f1, self._dir1, self._dir2)
-            # nothing to do if we have a directory
 
     def _copy(self, filename, dir1, dir2):
-        """ Private function for copying a file """
+        """ Copies a file from source to replica folder. """
 
-        # NOTE: dir1 is source & dir2 is target
-        if self._copyfiles:
+        rel_path = filename.replace('\\', '/').split('/')
+        rel_dir = '/'.join(rel_path[:-1])
+        filename = rel_path[-1]
 
-            rel_path = filename.replace('\\', '/').split('/')
-            rel_dir = '/'.join(rel_path[:-1])
-            filename = rel_path[-1]
+        dir2_root = dir2
 
-            dir2_root = dir2
+        dir1 = os.path.join(dir1, rel_dir)
+        dir2 = os.path.join(dir2, rel_dir)
 
-            dir1 = os.path.join(dir1, rel_dir)
-            dir2 = os.path.join(dir2, rel_dir)
-
-            self.log('Copying file %s from %s to %s' %
-                     (filename, dir1, dir2))
-            try:
-                if not os.path.exists(dir2):
-                    # 1911 = 0o777
-                    os.chmod(os.path.dirname(dir2_root), 1911)
-                    try:
-                        os.makedirs(dir2)
-                        self._numnewdirs += 1
-                    except OSError as e:
-                        self.log(str(e))
-                        self._numdirsfld += 1
-
-                os.chmod(dir2, 1911)  # 1911 = 0o777
-
-                sourcefile = os.path.join(dir1, filename)
+        self.log('Copying file %s from %s to %s' % (filename, dir1, dir2))
+        try:
+            if not os.path.exists(dir2):
+                os.chmod(os.path.dirname(dir2_root), 1911)
                 try:
-                    if os.path.islink(sourcefile):
-                        os.symlink(os.readlink(sourcefile),
-                                   os.path.join(dir2, filename))
-                    else:
-                        shutil.copy2(sourcefile, dir2)
-                    self._numfiles += 1
-                except (IOError, OSError) as e:
+                    os.makedirs(dir2)
+                    self._numnewdirs += 1
+                except OSError as e:
                     self.log(str(e))
-                    self._numcopyfld += 1
+                    self._numdirsfld += 1
 
-            except Exception as e:
-                self.log('Error copying file %s' % filename)
+            os.chmod(dir2, 1911)
+
+            sourcefile = os.path.join(dir1, filename)
+            try:
+                if os.path.islink(sourcefile):
+                    os.symlink(os.readlink(sourcefile),
+                               os.path.join(dir2, filename))
+                else:
+                    shutil.copy2(sourcefile, dir2)
+                self._numfiles += 1
+            except (IOError, OSError) as e:
                 self.log(str(e))
+                self._numcopyfld += 1
 
-    def _cmptimestamps(self, filest1, filest2):
-        """ Compare time stamps of two files and return True
-        if file1 (source) is more recent than file2 (target) """
-
-        mtime_cmp = int((filest1.st_mtime - filest2.st_mtime) * 1000) > 0
-        return mtime_cmp
+        except Exception as e:
+            self.log('Error copying file %s' % filename)
+            self.log(str(e))
 
     def _update(self, filename, dir1, dir2):
-        """ Private function for updating a file based on
-        last time stamp of modification or difference of content"""
+        """ Updates a file based on difference of content. """
 
-        # NOTE: dir1 is source & dir2 is target
-        if self._updatefiles:
+        file1 = os.path.join(dir1, filename)
+        file2 = os.path.join(dir2, filename)
 
-            file1 = os.path.join(dir1, filename)
-            file2 = os.path.join(dir2, filename)
+        try:
+            st1 = os.stat(file1)
+            st2 = os.stat(file2)
+        except os.error:
+            return -1
 
+        need_upd = (not filecmp.cmp(file1, file2, False))
+        if need_upd:
+            self.log('Updating file %s' % file2)
             try:
-                st1 = os.stat(file1)
-                st2 = os.stat(file2)
-            except os.error:
-                return -1
+                os.chmod(file2, 1638)  # 1638 = 0o666
 
-            # Update will update in both directions depending
-            # on ( the timestamp of the file or its content ) & copy-direction.
-
-            # If flag 'content' is used then look only at difference of file
-            # contents instead of time stamps.
-            # Update file if file's modification time is older than
-            # source file's modification time, or creation time. Sometimes
-            # it so happens that a file's creation time is newer than it's
-            # modification time! (Seen this on windows)
-            need_upd = (not filecmp.cmp(file1, file2, False))
-            if need_upd:
-                # source to target
-                self.log('Updating file %s' % file2)
                 try:
-                    os.chmod(file2, 1638)  # 1638 = 0o666
-
-                    try:
-                        if os.path.islink(file1):
-                            os.symlink(os.readlink(file1), file2)
-                        else:
-                            try:
-                                shutil.copy2(file1, file2)
-                            except PermissionError as e:
-                                os.chmod(file2, stat.S_IWRITE)
-                                shutil.copy2(file1, file2)
-                        self._changed.append(file2)
-                        self._numcontupdates += 1
-                        return 0
-                    except (IOError, OSError) as e:
-                        self.log(str(e))
-                        self._numupdsfld += 1
-                        return -1
-
-                except Exception as e:
+                    if os.path.islink(file1):
+                        os.symlink(os.readlink(file1), file2)
+                    else:
+                        try:
+                            shutil.copy2(file1, file2)
+                        except PermissionError as e:
+                            os.chmod(file2, stat.S_IWRITE)
+                            shutil.copy2(file1, file2)
+                    self._changed.append(file2)
+                    self._numcontupdates += 1
+                    return 0
+                except (IOError, OSError) as e:
                     self.log(str(e))
+                    self._numupdsfld += 1
                     return -1
+
+            except Exception as e:
+                self.log(str(e))
+                return -1
 
         return -1
 
     def _dirdiffcopyandupdate(self, dir1, dir2):
         """
-        Private function which does directory diff, copy and update (synchro)
+        Synchro function.
         """
         self._dowork(dir1, dir2, self._copy, self._update)
 
     def sync(self):
-        """ Synchronize will try to synchronize two directories w.r.t
-        each other's contents, copying files if necessary from source
-        to target, and creating directories if necessary. If the optional
-        argument purge is True, directories in target (dir2) that are
-        not present in the source (dir1) will be deleted . Synchronization
-        is done in the direction of source to target """
-
-        self._copyfiles = True
-        self._updatefiles = True
-        self._creatdirs = True
-        self._copydirection = 0
-
+        """ Sync function. """
         self.log('Synchronizing directory %s with %s' % (self._dir2, self._dir1))
         self._dirdiffcopyandupdate(self._dir1, self._dir2)
 
-    def report(self):
-        """ Print report of work at the end """
-
-        # We need only the first 4 significant digits
+    def print_logs(self):
+        """ Outputs logs. """
         tt = (str(self._endtime - self._starttime))[:4]
 
         self.log('%s finished in %s seconds.' % (__pkg_name__, tt))
@@ -351,9 +299,7 @@ class Syncer(object):
             self.log('%d files were updated by content.' % self._numcontupdates)
         if self._numtimeupdates:
             self.log('%d files were updated by timestamp.' % self._numtimeupdates)
-
-        # Failure stats
-        self.log('')
+        self.log('')  # Break before new synchronization
         if self._numcopyfld:
             self.log('there were errors in copying %d files.'
                      % self._numcopyfld)
