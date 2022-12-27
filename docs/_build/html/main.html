@@ -75,6 +75,38 @@
   <section id="module-main">
 <span id="main-module"></span><h1>main module<a class="headerlink" href="#module-main" title="Permalink to this heading"></a></h1>
 <p>Takes all input arguments. Schedules the synchronization with the input interval.</p>
+<p>This is a Python package that synchronizes two folders: source and replica. The
+program maintains a full, identical copy of source folder at replica folder.</p>
+<p>To implement it you should be in the folder ‘veeam_task’ and write into console command
+<br> <b>“python main.py sourcedir targetdir interval log_file_path “</b>.</p>
+<dl class="simple">
+<dt>positional arguments:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param sourcedir<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Location of the source folder.</p>
+</dd>
+<dt class="field-even">param targetdir<span class="colon">:</span></dt>
+<dd class="field-even"><p>Location of the replica folder. If the folder doesn’t exist at this directory, it will be created.</p>
+</dd>
+<dt class="field-odd">param interval<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Synchronization interval. Stays for with what frequency synchronization should be repeated. Float argument.</p>
+</dd>
+<dt class="field-even">param log_file_path<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log file path. If the file doesn’t exist, it will be created.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="simple">
+<dt>optional arguments:</dt><dd><dl class="field-list simple">
+    <dt class="field-odd">param -h, –help<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Show this help message and exit.</p>
+</dd>
+        <dt class="field-odd">param time_units {s,m,h}<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Time measurement units. Possible values: s for seconds, m for minutes,h for hours. Default value is seconds.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 
 

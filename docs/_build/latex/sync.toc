@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}sync}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}main module}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}sync package}{1}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Submodules}{1}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}sync.run module}{1}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}sync.syncer module}{2}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Module contents}{2}{subsection.1.2.4}%
+\contentsline {chapter}{\numberline {2}Indices and tables}{3}{chapter.2}%
+\contentsline {chapter}{Python Module Index}{5}{section*.11}%
+\contentsline {chapter}{Index}{7}{section*.12}%

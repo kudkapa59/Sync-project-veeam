@@ -1,0 +1,9 @@
+MANIFEST.in
+setup.py
+Sync.egg-info/PKG-INFO
+Sync.egg-info/SOURCES.txt
+Sync.egg-info/dependency_links.txt
+Sync.egg-info/top_level.txt
+sync/__init__.py
+sync/run.py
+sync/syncer.py

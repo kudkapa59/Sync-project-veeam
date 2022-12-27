@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="main package" href="main.html" />
+    <link rel="next" title="main module" href="main.html" />
     <link rel="prev" title="sync" href="modules.html" /> 
 </head>
 
@@ -45,6 +45,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">sync package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-sync.run">sync.run module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sync.run.args_parser"><code class="docutils literal notranslate"><span class="pre">args_parser()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sync.run.synchronize"><code class="docutils literal notranslate"><span class="pre">synchronize()</span></code></a></li>
 </ul>
 </li>
@@ -56,7 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-sync">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 </ul>
 </li>
 </ul>
@@ -95,9 +96,25 @@
 <span id="sync-run-module"></span><h2>sync.run module<a class="headerlink" href="#module-sync.run" title="Permalink to this heading"></a></h2>
 <p>Run function to call to the Syncer class and to make report.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="sync.run.args_parser">
+<span class="sig-prename descclassname"><span class="pre">sync.run.</span></span><span class="sig-name descname"><span class="pre">args_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sync.run.args_parser" title="Permalink to this definition"></a></dt>
+<dd><p>Parser of input arguments. Returns all input arguments from command line.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="sync.run.synchronize">
 <span class="sig-prename descclassname"><span class="pre">sync.run.</span></span><span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sourcedir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sync.run.synchronize" title="Permalink to this definition"></a></dt>
 <dd><p>Calls to Syncer class, makes comparison, copies content and outputs logs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sourcedir</strong> – the source folder location</p></li>
+<li><p><strong>targetdir</strong> – the replica folder location. Will be created if doesn’t exist.</p></li>
+<li><p><strong>interval</strong> – synchronization interval</p></li>
+<li><p><strong>log_file_path</strong> – the log file location. Will be created if doesn’t exist.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -115,10 +132,21 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sync.syncer.</span></span><span class="sig-name descname"><span class="pre">Syncer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sync.syncer.Syncer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Modifies the replica folder to exactly match content of the source folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sourcedir</strong> – the source folder location</p></li>
+<li><p><strong>targetdir</strong> – the replica folder location. Will be created if doesn’t exist.</p></li>
+<li><p><strong>interval</strong> – synchronization interval</p></li>
+<li><p><strong>log_file_path</strong> – the log file location. Will be created if doesn’t exist.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sync.syncer.Syncer.log">
 <span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sync.syncer.Syncer.log" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reference to the logger.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sync.syncer.Syncer.print_logs">
@@ -152,7 +180,7 @@ time.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="modules.html" class="btn btn-neutral float-left" title="sync" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="main.html" class="btn btn-neutral float-right" title="main package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

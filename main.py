@@ -1,5 +1,22 @@
 """
 Takes all input arguments. Schedules the synchronization with the input interval.
+
+This is a Python package that synchronizes two folders: source and replica. The
+program maintains a full, identical copy of source folder at replica folder.
+
+To implement it you should be in the folder 'veeam_task' and write into console command
+"python main.py "sourcedir" "targetdir" interval "log_file_path" ".
+
+positional arguments:
+    :param sourcedir: Location of the source folder.
+    :param targetdir: Location of the replica folder. If the folder doesn't exist at this directory, it will be created.
+    :param interval: Synchronization interval. Stays for with what frequency synchronization should be repeated. Float argument.
+    :param log_file_path: Log file path. If the file doesn't exist, it will be created.
+
+optional arguments:
+    :param -h, --help: Show this help message and exit.
+    :param time_units {s,m,h}: Time measurement units. Possible values: s for seconds, m for minutes,h for hours. Default value is seconds.
+
 """
 
 from sync import synchronize, args_parser

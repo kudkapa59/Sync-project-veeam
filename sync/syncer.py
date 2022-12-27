@@ -22,7 +22,13 @@ class DCMP(object):
 
 
 class Syncer(object):
-    """Modifies the replica folder to exactly match content of the source folder."""
+    """Modifies the replica folder to exactly match content of the source folder.
+
+    :param sourcedir: the source folder location
+    :param targetdir: the replica folder location. Will be created if doesn't exist.
+    :param interval: synchronization interval
+    :param log_file_path: the log file location. Will be created if doesn't exist.
+    """
 
     def __init__(self, dir1, dir2, interval, log_file_path):
         self._log_file_path = log_file_path
@@ -71,10 +77,16 @@ class Syncer(object):
             raise ValueError("Error: Source directory does not exist.")
 
     def log(self, msg=''):
+        """Reference to the logger.
+        """
         self.logger.info(msg)
 
     def _compare(self, dir1, dir2):
-        """ Compares source and replica folders."""
+        """Compares source and replica folders.
+
+        :param dir1: the source folder location.
+        :param dir2: the replica folder location.
+        """
 
         left = set()
         right = set()
@@ -91,13 +103,13 @@ class Syncer(object):
                 anc_dirs = re_path[:-1].split('/')
                 anc_dirs_path = ''
                 for ad in anc_dirs[1:]:
-                    anc_dirs_path = os.path.join(anc_dirs_path, ad)  # TODO
+                    anc_dirs_path = os.path.join(anc_dirs_path, ad)
                     left.add(anc_dirs_path)
         for cwd, dirs, files in os.walk(dir2):
             for f in dirs + files:
                 path = os.path.relpath(os.path.join(cwd, f), dir2)
                 right.add(path)
-                if f in dirs and path not in left:  # TODO
+                if f in dirs and path not in left:
                     self._numdirs += 1
 
         common = left.intersection(right)
@@ -124,8 +136,14 @@ class Syncer(object):
         self.sync()
         self._endtime = time.time()
 
-    def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):  # TODO
-        """ Private attribute for doing work """
+    def _dowork(self, dir1, dir2, copyfunc=None, updatefunc=None):
+        """ Private attribute for doing work.
+
+        :param dir1: the source folder location.
+        :param dir2: the replica folder location. Will be created if doesn't exist.
+        :param copyfunc: the reference to _copy method of the class.
+        :param updatefunc: the reference to _update method of the class.
+        """
 
         self.log('Source directory: %s' % dir1)
 
@@ -189,7 +207,12 @@ class Syncer(object):
                     updatefunc(f1, self._dir1, self._dir2)
 
     def _copy(self, filename, dir1, dir2):
-        """ Copies a file from source to replica folder. """
+        """ Copies a file from source to replica folder.
+
+        :param filename: the file needed to copy.
+        :param dir1: the source folder location.
+        :param dir2: the replica folder location.
+        """
 
         rel_path = filename.replace('\\', '/').split('/')
         rel_dir = '/'.join(rel_path[:-1])
@@ -230,7 +253,12 @@ class Syncer(object):
             self.log(str(e))
 
     def _update(self, filename, dir1, dir2):
-        """ Updates a file based on difference of content. """
+        """ Updates a file based on difference of content.
+
+        :param filename: the file needed to update.
+        :param dir1: the source folder location.
+        :param dir2: the replica folder location.
+        """
 
         file1 = os.path.join(dir1, filename)
         file2 = os.path.join(dir2, filename)
@@ -271,8 +299,10 @@ class Syncer(object):
         return -1
 
     def _dirdiffcopyandupdate(self, dir1, dir2):
-        """
-        Synchro function.
+        """Synchro function.
+
+        :param dir1: the source folder location.
+        :param dir2: the replica folder location.
         """
         self._dowork(dir1, dir2, self._copy, self._update)
 

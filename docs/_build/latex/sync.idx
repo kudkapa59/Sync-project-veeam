@@ -1,0 +1,16 @@
+\indexentry{module@\spxentry{module}!main@\spxentry{main}|hyperpage}{1}
+\indexentry{main@\spxentry{main}!module@\spxentry{module}|hyperpage}{1}
+\indexentry{module@\spxentry{module}!sync.run@\spxentry{sync.run}|hyperpage}{1}
+\indexentry{sync.run@\spxentry{sync.run}!module@\spxentry{module}|hyperpage}{1}
+\indexentry{args\_parser() (in module sync.run)@\spxentry{args\_parser()}\spxextra{in module sync.run}|hyperpage}{1}
+\indexentry{synchronize() (in module sync.run)@\spxentry{synchronize()}\spxextra{in module sync.run}|hyperpage}{1}
+\indexentry{module@\spxentry{module}!sync.syncer@\spxentry{sync.syncer}|hyperpage}{2}
+\indexentry{sync.syncer@\spxentry{sync.syncer}!module@\spxentry{module}|hyperpage}{2}
+\indexentry{DCMP (class in sync.syncer)@\spxentry{DCMP}\spxextra{class in sync.syncer}|hyperpage}{2}
+\indexentry{Syncer (class in sync.syncer)@\spxentry{Syncer}\spxextra{class in sync.syncer}|hyperpage}{2}
+\indexentry{log() (sync.syncer.Syncer method)@\spxentry{log()}\spxextra{sync.syncer.Syncer method}|hyperpage}{2}
+\indexentry{print\_logs() (sync.syncer.Syncer method)@\spxentry{print\_logs()}\spxextra{sync.syncer.Syncer method}|hyperpage}{2}
+\indexentry{sync() (sync.syncer.Syncer method)@\spxentry{sync()}\spxextra{sync.syncer.Syncer method}|hyperpage}{2}
+\indexentry{sync\_work() (sync.syncer.Syncer method)@\spxentry{sync\_work()}\spxextra{sync.syncer.Syncer method}|hyperpage}{2}
+\indexentry{module@\spxentry{module}!sync@\spxentry{sync}|hyperpage}{2}
+\indexentry{sync@\spxentry{sync}!module@\spxentry{module}|hyperpage}{2}

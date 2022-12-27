@@ -18,7 +18,7 @@ release = '2022'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    # 'sphinx.ext.autodoc',
+    'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     # 'sphinxcontrib.asciiart',
     'sphinx.ext.imgmath',

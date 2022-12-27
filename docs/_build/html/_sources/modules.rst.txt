@@ -4,5 +4,5 @@ sync
 .. toctree::
    :maxdepth: 4
 
-   sync
    main
+   sync
